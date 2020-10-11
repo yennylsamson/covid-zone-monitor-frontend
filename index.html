@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <link href="main.css" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Code Generator Sample</title>
+        <script type="text/javascript" src="llqrcode.js"></script>
+        <script type="text/javascript" src="webqr.js"></script>
+    </head>
+    <body>
+        <!-- QR Generator -->
+
+            <div class="container">
+                <div class="left-container">
+                    <input type="text" id="data" placeholder="your qr text here" name="dataName">
+                    <button id="generate_code">Generate Qr Code</button>
+                </div>
+                <br>
+                <br>
+                <div class="right-container" style="margin: 20px;">
+                    <img src="" alt="qr code" id="qr_img">
+                </div>
+            </div>
+            <br>
+            
+       <!-- QR scanner -->
+       <br>
+       <a href="#" class="selector" id="webcamimg" onclick="setwebcam()">Cam</a>
+       <a href="#" class="selector" id="qrimg" onclick="setimg()">File</a>
+       <div id="outdiv" style="margin: 20px;"></div>
+       <div id="result"></div>
+       <canvas id="qr-canvas" width="800" height="600"></canvas>
+       <script type="text/javascript">load();</script>
+        <script src="main.js"></script>
+    </body>
+</html>
