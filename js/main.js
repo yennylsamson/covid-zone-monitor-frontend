@@ -15,3 +15,4 @@ function generateQR(){
         console.log(data);
     });
 }
+

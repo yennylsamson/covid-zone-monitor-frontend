@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Code Generator Sample</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/bbec1f8b2b.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="js/llqrcode.js"></script>
+        <script type="text/javascript" src="js/webqr.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+        <script src="js/main.js"></script>
+    </head>
+    <body>
+        <div class="row justify-content-center m-auto vh-100">
+            <div class="col text-center my-auto">
+                <div>
+                    <img id="logoBanner" src="/imgs/logoCVM.png">
+                    <div class="px-5">
+                        <form class="guest-form text-left" name="login">
+                            <div class="form-group input-group pb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                                 </div>
+                                <input name="" class="form-control" placeholder="Email address" type="email">
+                            </div> 
+                            <div class="form-group input-group pb-2">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                                </div>
+                                <input class="form-control" placeholder="Password" type="password">
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="remember" name="remember">
+                                <label for="remember" class="ml-1">Remember Me</label>
+                            </div>       
+                            <button type="submit" class="btn-form mt-3 btn btn-primary btn-block rounded-0">Log In</button>
+                            <a class="btn btn-secondary btn-block rounded-0" href="register.html">
+                                Register
+                            </a>
+                            
+                          </form>
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </body>
+</html>
