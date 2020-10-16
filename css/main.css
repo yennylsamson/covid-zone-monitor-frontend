@@ -181,3 +181,56 @@ transition: all 0.3s; }
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.warning-symbol {
+  color: red;
+}
+
+.location-symbol {
+  color: cyan;
+  -webkit-text-stroke-width: .8px;
+  -webkit-text-stroke-color: black;
+}
+.safe-symbol {
+  color: green;
+
+}
+.symb {
+  padding: 10px 0;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-align: center;
+}
+.symb-r {
+  padding: 10px 0;
+  width: 50%;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.message {
+  font-size: 90%;
+}
+.message-s{
+  font-size: 70%;
+}
+
+.container {
+  margin: 0%;
+  
+}
+
+.text-justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+hr {
+  margin: 5%;
+}
+
+.card {
+  background-color: rgb(250, 250, 250);
+  border: 0.1px solid lightgray;
+}
