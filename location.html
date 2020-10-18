@@ -6,6 +6,7 @@
         <title>QR Code Generator Sample</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
         <link href="css/main.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
         <script src="https://kit.fontawesome.com/bbec1f8b2b.js" crossorigin="anonymous"></script>
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
@@ -28,14 +29,14 @@
 				<div class="p-4">
 		  		<h1><a href="index.html" class="logo">Project Logo</a></h1>
 	            <ul class="list-unstyled components mb-5">
-                    <li class="active">
+                    <li>
                         <a href="notification.html"><span class="fa fa-envelope"></span> Notifications</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="location.html"><span class="fa fa-map-marker" ></span> On Tracker</a>
                     </li>
                     <li>
-                    <a href="#"><span class="fa fa-plus-square"></span> Covid-19</a>
+                    <a href="covid19.html"><span class="fa fa-plus-square"></span> Covid-19</a>
                     </li>
                     <li>
                     <a href="#"><span class="fa fa-sign-out"></span> Log Out</a>
@@ -52,19 +53,20 @@
                         <div id="map"></div>
                    </div>
                </div>
-               <div class="row mt-3 px-5 text-center">
-                    <div class="col">
-                        <div class="card">
-                            <p id="placename"></p>
-                        </div>
-                        
-                    </div>
-               </div>
-               <div class="row mt-3 px-5 justify-content-center">
+               <div class="row px-5 justify-content-center">
                     <div class="col">
                         <button type="submit" class="btn btn-dark btn-block rounded-0">TOGGLE TRACKING</button>
                     </div>
                </div>
+               <div class="row mt-3 px-5 text-center">
+                <div class="col">
+                    <div class="card">
+                        <p class="font-weight-bold m-0 p-0">Nearest Landmark:</p>
+                        <p id="placename"></p>
+                    </div>
+                    
+                </div>
+           </div>
            </div>
         </div>
         
