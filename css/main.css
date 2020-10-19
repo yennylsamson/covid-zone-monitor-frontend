@@ -1,0 +1,264 @@
+
+  body {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  img{
+      border:0;
+  }
+
+ 
+  #mainbody{
+      background: white;
+      width:100%;
+    display:none;
+  }
+
+  #v{
+      width:320px;
+      height:240px;
+  }
+  #qr-canvas{
+      display:none;
+  }
+  #imghelp{
+      position:relative;
+      left:0px;
+      top:-160px;
+      z-index:100;
+      font:18px arial,sans-serif;
+      background:#f0f0f0;
+      margin-left:35px;
+      margin-right:35px;
+      padding-top:10px;
+      padding-bottom:10px;
+      border-radius:20px;
+  }
+  .selector{
+      margin:0;
+      padding:0;
+      cursor:pointer;
+      margin-bottom:-5px;
+
+  }
+  #outdiv
+  {
+      width:320px;
+      height:240px;
+    border: solid;
+    border-width: 3px 3px 3px 3px;
+  }
+  #result{
+      border: solid;
+    border-width: 1px 1px 1px 1px;
+    padding:20px;
+    width:70%;
+  }
+
+  /* IDS */
+
+  #logoBanner {
+    height: 5rem;
+    padding-bottom: 1rem;
+  }
+
+
+  /* CLASSES */
+
+.btn-form {
+background-color:rgb(0, 100, 75);
+border: 0;
+
+}
+
+.wrapper {
+width: 100%; }
+
+#sidebar {
+  min-width: 270px;
+  max-width: 270px;
+background-color:rgb(0, 100, 75);
+  color: #fff;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+  position: relative; }
+
+#sidebar .h6 {
+  color: #fff; }
+
+#sidebar.active {
+  margin-left: -270px; }
+
+#sidebar.active .custom-menu {
+  margin-right: -50px; }
+
+#sidebar h1 {
+margin-bottom: 20px;
+font-weight: 700; }
+
+#sidebar h1 .logo {
+  color: #fff; }
+
+#sidebar ul.components {
+padding: 0; }
+
+#sidebar ul li {
+font-size: 16px; }
+
+#sidebar ul li > ul {
+  margin-left: 10px; }
+  
+#sidebar ul li > ul li {
+    font-size: 14px; }
+
+#sidebar ul li a {
+  padding: 10px 0;
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+
+#sidebar ul li a:hover {
+    color: #fff; }
+
+#sidebar ul li.active > a {
+  background: transparent;
+  color: #fff; }
+
+@media (max-width: 991.98px) {
+#sidebar {
+  margin-left: -270px; }
+
+#sidebar.active {
+  margin-left: 0; }
+
+#sidebar .custom-menu {
+  margin-right: -60px !important;
+  top: 10px !important; } }
+
+#sidebar .custom-menu {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  margin-right: -20px;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s; }
+
+@media (prefers-reduced-motion: reduce) {
+  #sidebar .custom-menu {
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none; } }
+
+#sidebar .custom-menu .btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; }
+
+#sidebar .custom-menu .btn.btn-primary {
+  background-color:rgb(0, 100, 75);
+  border-color: #393c7f; }
+
+#sidebar .custom-menu .btn.btn-primary:hover, #sidebar .custom-menu .btn.btn-primary:focus {
+  background-color:rgb(0, 100, 75) !important;
+  border-color: rgb(0, 100, 75) !important; }
+
+#content {
+width: 100%;
+padding: 0;
+min-height: 100vh;
+-webkit-transition: all 0.3s;
+-o-transition: all 0.3s;
+transition: all 0.3s; }
+
+.bg { 
+  /* The image used */
+  background-image: url('../imgs/bg.png');
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.warning-symbol {
+  color: red;
+}
+
+.location-symbol {
+  color: cyan;
+  -webkit-text-stroke-width: .8px;
+  -webkit-text-stroke-color: black;
+}
+.safe-symbol {
+  color: green;
+
+}
+.symb {
+  padding: 10px 0;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-align: center;
+}
+.symb-r {
+  padding: 10px 0;
+  width: 50%;
+  margin-right: 5px;
+  margin-left: 5px;
+  text-align: center;
+}
+
+.message {
+  font-size: 90%;
+}
+.message-s{
+  font-size: 70%;
+}
+
+.container {
+  margin: 0%;
+  
+}
+
+.text-justified {
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+hr {
+  margin: 5%;
+}
+
+.card {
+  background-color: rgb(250, 250, 250);
+  border: 0.1px solid lightgray;
+}
+
+#map {
+  margin-top: 5rem;
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  height: 80%;
+  border: gray solid 3px;
+}
+
+.custom-menu {
+  z-index: 1;
+}
+
+.right-arrow{
+  color: blue;
+}
+
+.inner-card {
+  background-color: rgb(250, 260, 260);
+  padding-top: 5%;
+  padding-bottom: 5%;
+  border-color: blue;
+}
