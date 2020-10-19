@@ -78,3 +78,38 @@ function displayPOI(coords) {
     xmlhttp.send();
 }
 
+function saveData(){
+    const last_name = document.getElementById('lastName').value;
+    const first_name = document.getElementById('firstName').value;
+    const email_address = document.getElementById('emailAdd').value;
+    const phone_number = document.getElementById('phoneNumber').value;
+    const user_address = document.getElementById('address').value;
+    const user_password = document.getElementById('password').value;
+
+    const dataList = new FormData();
+    dataList.append("json", JSON.stringify({
+        dataLastName: last_name,
+        dataFirstName: first_name,
+        dataEmailAdd: email_address,
+        dataPhoneNumber: phone_number,
+        dataAddress: user_address,
+        dataPassword: user_password
+    }));
+    fetch('http://localhost:4040/users/new', {
+        method: 'post', body: JSON.stringify({
+            dataLastName: last_name,
+            dataFirstName: first_name,
+            dataEmailAdd: email_address,
+            dataPhoneNumber: phone_number,
+            dataAddress: user_address,
+            dataPassword: user_password
+        }), 
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+        return response.json();
+    }).then(function(dataList) {
+        console.log(dataList);
+    });
+
+}
+
