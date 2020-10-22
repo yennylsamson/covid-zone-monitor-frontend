@@ -12,8 +12,6 @@
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
         <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.min.js'></script>
         <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.2.0/mapbox-gl-geocoder.css' type='text/css' />
-        <script type="text/javascript" src="js/llqrcode.js"></script>
-        <script type="text/javascript" src="js/webqr.js"></script>
         <script src="js/main.js"></script>
     </head>
     <body>
@@ -55,7 +53,7 @@
                </div>
                <div class="row px-5 justify-content-center">
                     <div class="col">
-                        <button type="submit" class="btn btn-dark btn-block rounded-0">TOGGLE TRACKING</button>
+                        <button type="submit" class="btn btn-dark btn-block rounded-0" onclick="loadMap()">TOGGLE TRACKING</button>
                     </div>
                </div>
                <div class="row mt-3 px-5 text-center">
@@ -90,7 +88,6 @@
         })(jQuery);
         </script>
         <script>
-            loadMap();
         </script>
 
         </body>

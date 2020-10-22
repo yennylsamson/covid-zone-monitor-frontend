@@ -1,6 +1,8 @@
+var pName;
+
 function loadMap() {
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.watchPosition(showPosition);
     } else {
       x.innerHTML = "Geolocation is not supported by this browser.";
     }
@@ -70,12 +72,17 @@ function displayPOI(coords) {
     if (this.readyState == 4 && this.status == 200) {
         var myObj = JSON.parse(this.responseText);
         var name = myObj.features[0].place_name;
-        document.getElementById("placename").innerText = name;
-        console.log(myObj.features[0].place_name);
+        if (name !== pName) {
+            document.getElementById("placename").innerText = name;
+            console.log(myObj.features[0].place_name);
+            listPlace(dateTime, name);
+            pName = name;
+        }
     }
     };
     xmlhttp.open("GET", "https://api.mapbox.com/geocoding/v5/mapbox.places/"+coords+".json?types=poi.landmark&limit=1&access_token=pk.eyJ1IjoicnBobG1uYnQiLCJhIjoiY2tnYnl3bXM5MDBscTM0cnpwbGwwZmNneCJ9.HjYTuuq_Cx8OwDsz31ZGsg", true);
     xmlhttp.send();
+    var dateTime = getDate();
 }
 
 function saveData(){
@@ -95,7 +102,7 @@ function saveData(){
         dataAddress: user_address,
         dataPassword: user_password
     }));
-    fetch('http://localhost:4040/users/new', {
+    fetch('http://localhost:4040/users/register', {
         method: 'post', body: JSON.stringify({
             dataLastName: last_name,
             dataFirstName: first_name,
@@ -109,7 +116,76 @@ function saveData(){
         return response.json();
     }).then(function(dataList) {
         console.log(dataList);
+        getUsers();
     });
 
+    
 }
 
+function getUsers() {
+    fetch('http://localhost:4040/users/list', {
+        method: 'get'
+    }
+    
+    ).then(function(response) {
+      return response.json();
+    }).then(function(dataList) {
+        console.log(dataList);
+    });
+}
+
+// first_name, last_name, date_Time, place_Name
+
+function listPlace(date_Time, place_Name) { 
+    const dataList = new FormData();
+    dataList.append("json", JSON.stringify({
+        dataLastName: "last_name",
+        dataFirstName: "first_name",
+        dateTime: "date_Time",
+        placeName: "place_Name",
+    }));
+    fetch('http://localhost:4040/users/log', {
+        method: 'post', body: JSON.stringify({
+            // dataLastName: last_name,
+            // dataFirstName: first_name,
+            dateTime: date_Time,
+            placeName: place_Name,
+            dataLastName: "last_name",
+            dataFirstName: "first_name",
+            // dateTime: "date_Time",
+            // placeName: "place_Name",
+        }), 
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+        return response.json();
+    }).then(function(dataList) {
+        console.log(dataList);
+        getUsers();
+    });
+}
+
+function getDate() {
+    var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    var d = new Date();
+    var min = (d.getMinutes()<10?("0"+d.getMinutes()):(d.getMinutes()));
+    var dateTime = "Date: " + months[d.getMonth()] + " " + d.getDate() + ", " + d.getFullYear() + " " + "Time: " + d.getHours() + ":" + min;
+
+    return dateTime;
+}
+
+function checkCreds() {
+    emailAdd = document.getElementById('emailLogin').value;
+    pass = document.getElementById('passLogin').value;
+    fetch('http://localhost:4040/users/auth', {
+        method: 'post', body: JSON.stringify({
+            dataEmailAdd : emailAdd,
+        }),
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+      return response.json();
+    }).then(function(dataList) {
+        if (dataList.data[0].dataPassword === pass) {
+            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+        }
+    });
+}
