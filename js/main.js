@@ -131,7 +131,6 @@ function getUsers() {
       return response.json();
     }).then(function(dataList) {
         console.log(dataList);
-        console.log("BREAL");
         console.log(dataList.data[1]);
     });
 }
@@ -139,10 +138,12 @@ function getUsers() {
 // first_name, last_name, date_Time, place_Name
 
 function listPlace(date_Time, place_Name) { 
+    last_name = sessionStorage.getItem('userLastName');
+    first_name = sessionStorage.getItem('userFirstName');
     const dataList = new FormData();
     dataList.append("json", JSON.stringify({
-        dataLastName: "last_name",
-        dataFirstName: "first_name",
+        dataLastName: last_name,
+        dataFirstName: first_name,
         dateTime: "date_Time",
         placeName: "place_Name",
     }));
@@ -153,8 +154,8 @@ function listPlace(date_Time, place_Name) {
             // dataFirstName: first_name,
             dateTime: date_Time,
             placeName: place_Name,
-            dataLastName: "last_name",
-            dataFirstName: "first_name",
+            dataLastName: last_name,
+            dataFirstName: first_name,
             // dateTime: "date_Time",
             // placeName: "place_Name",
         }), 
@@ -188,13 +189,17 @@ function checkCreds() {
     }).then(function(response) {
       return response.json();
     }).then(function(dataList) {
-        if (dataList.data[0].dataPassword === pass) {
+        if (dataList.data[0].dataPassword === pass && dataList.data[0].dataEmailAdd === emailAdd) {
 
-            // User last name stored in localstorage
-            //localStorage.setItem('userLastName', dataList.data[0].dataLastName);
+            // User last name stored in session storage
+            sessionStorage.setItem('userLastName', dataList.data[0].dataLastName);
+            sessionStorage.setItem('userFirstName', dataList.data[0].dataFirstName);
             // window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
             window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
+            console.log(localStorage.setItem('userFirstName', dataList.data[0].dataFirstName));
             
+        } else{
+            window.alert("Wrong Email or Password");
         }
     });
 }
