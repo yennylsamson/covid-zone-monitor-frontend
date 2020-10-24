@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>QR Code Generator Sample</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="css/main.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/bbec1f8b2b.js" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
     </head>
-    <body>
+    <body onload="showPostiveLocation()">
 
         <div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
@@ -23,7 +23,7 @@
 				<div class="p-4">
 		  		<h1><a href="index.html" class="logo">Project Logo</a></h1>
 	            <ul class="list-unstyled components mb-5">
-                    <li class="active">
+                    <li>
                         <a href="notification.html"><span class="fa fa-envelope"></span> Notifications</a>
                     </li>
                     <li>
@@ -32,7 +32,7 @@
                     <li>
                     <a href="covid19.html"><span class="fa fa-plus-square"></span> Covid-19</a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="log.html"><span class="fas fa-clipboard-list" ></span> Logs</a>
                     </li>
                     <li>
@@ -45,61 +45,22 @@
         <!-- Page Content  -->
             <div id="content" class="p-4 p-md-5 pt-5 bg">
                 <br>
-                
-                <div class="card container">
-                    <h4 class="mt-3 mb-1">NOTIFICATIONS</h4>
-                    <hr>
-                    <div class="row no-gutter">
-                        <!-- left symbol -->
-                        <div class="col-1 " ><span class="fa fa-exclamation-circle warning-symbol symb"></span></div>
-
-                        <div class="col container row">
-                            <div class="col" >
-                                <div class="message-header">
-                                    <b>Holy Angel University</b> <br>
-                                    <span style="font-size: small;">October 16, 1:00pm -2:30pm</span> 
-                                </div>
-                                <hr>
-                                  <!-- Message -->
-                                <div class="message text-justified">
-                                    You <b>may have crossed paths</b> with 
-                                    someone who tested positive for COVID-19 
-                                    since you we're out.
-                                </div>
-                                <hr>
-                                <div class="message-s text-justified">
-                                    Your phone's location and time came within a 
-                                    short distance and timeframe as someone has tested 
-                                    positive for COVID-19.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-1 symb"><span class="fa fa-map-marker location-symbol symb"></span></div>
+                <div class="card px-3 py-3">
+                    <h5 class=" mb-3"><b>HISTORY</b></h5>
+                    <div class="overflow-auto" style="max-height: 450px;">
+                        <table id="historyTable" >
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+    
+                        </table>
                     </div>
-                    <hr>
-                    <div class="row no-gutter">
-                        <!-- left symbol -->
-                        <div class="col-1 " ><span class="fa fa-user-plus safe-symbol"></span></div>
-
-                        <div class="col container row">
-                            <div class="col" >
-                                <div class="message-header">
-                                    <b>SM Clark</b> <br>
-                                    <span style="font-size: small;">October 20, 1:00pm -4:30pm</span>  
-                                </div>
-                                <hr>
-                                  <!-- Message -->
-                                <div class="message text-justified">
-                                    You <b> have not crossed paths</b> with 
-                                    someone who tested positive for COVID-19 
-                                    since you we're out.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-1"><span class=""></span></div>
-                    </div>
-                    <hr>
-                    <span style="text-align: right;"><a href="#">Notification History --></a></span>
+                    
                 </div>
                 
                 
@@ -119,7 +80,6 @@
                 });
             };
             fullHeight();
-        
             $('#sidebarCollapse').on('click', function () {
               $('#sidebar').toggleClass('active');
           }); 

@@ -262,3 +262,11 @@ hr {
   padding-bottom: 5%;
   border-color: blue;
 }
+
+#historyTable {
+  font-size: 90%;
+}
+
+td {
+  padding: 3%;
+}

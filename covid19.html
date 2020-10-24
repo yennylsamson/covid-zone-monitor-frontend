@@ -33,6 +33,9 @@
                     <a href="covid19.html"><span class="fa fa-plus-square"></span> Covid-19</a>
                     </li>
                     <li>
+                        <a href="log.html"><span class="fas fa-clipboard-list" ></span> Logs</a>
+                    </li>
+                    <li>
                     <a href="#"><span class="fa fa-sign-out"></span> Log Out</a>
                     </li>
 	            </ul>
@@ -48,8 +51,9 @@
                     <span style="font-size: small;" class="mb-3">Your answer is completely anonymous
                     and no personal information will ever be stored</span> 
                     <span style="font-size: large;"><b>Select an Answer to Continue</b></span><br>
+
                     <!-- Yes card -->
-                    <div class="card container inner-card mb-3">
+                    <div class="card container inner-card mb-3" onclick="getPostiveLocation()">
                         <div class="row no-gutter">
                             <div class="col-1 symb" ><span class="fa fa-plus-circle" style="color: red;"></span></div>
                             <div class="col">
@@ -61,7 +65,7 @@
                     </div>
 
                     <!-- No Card-->
-                    <div class="card container inner-card mb-3">
+                    <div class="card container inner-card mb-3" onclick="getPostiveLocation()">
                         <div class="row no-gutter">
                             <div class="col-1 symb" ><span class="fa fa-minus-circle" style="color: green;"></span></div>
                             <div class="col">
@@ -102,7 +106,6 @@
                 });
             };
             fullHeight();
-        
             $('#sidebarCollapse').on('click', function () {
               $('#sidebar').toggleClass('active');
           }); 

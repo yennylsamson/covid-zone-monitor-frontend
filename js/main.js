@@ -131,6 +131,8 @@ function getUsers() {
       return response.json();
     }).then(function(dataList) {
         console.log(dataList);
+        console.log("BREAL");
+        console.log(dataList.data[1]);
     });
 }
 
@@ -144,6 +146,7 @@ function listPlace(date_Time, place_Name) {
         dateTime: "date_Time",
         placeName: "place_Name",
     }));
+
     fetch('http://localhost:4040/users/log', {
         method: 'post', body: JSON.stringify({
             // dataLastName: last_name,
@@ -173,6 +176,7 @@ function getDate() {
     return dateTime;
 }
 
+
 function checkCreds() {
     emailAdd = document.getElementById('emailLogin').value;
     pass = document.getElementById('passLogin').value;
@@ -185,7 +189,76 @@ function checkCreds() {
       return response.json();
     }).then(function(dataList) {
         if (dataList.data[0].dataPassword === pass) {
-            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+
+            // User last name stored in localstorage
+            //localStorage.setItem('userLastName', dataList.data[0].dataLastName);
+            // window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+            window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
+            
         }
     });
+}
+
+
+function getPostiveLocation() {
+    // lastName = localStorage.getItem('userLastName');
+    lastName = "last_name";
+    fetch('http://localhost:4040/users/loc', {
+        method: 'post', body: JSON.stringify({
+            dataLastName : lastName,
+        }),
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+      return response.json();
+    }).then(function(dataList) {
+        dataList.data.forEach(function (e) {
+            // console.log("Placename: "+e.placeName);
+            // console.log("date: "+e.dateTime);
+            // add to the database
+            fetch('http://localhost:4040/users/pos', {
+            method: 'post', body: JSON.stringify({
+
+                dateTime: e.dateTime,
+                location: e.placeName,
+            }), 
+                headers:{"Content-Type": "application/json"}
+            }).then(function(response) {
+                return response.json();
+            }).then(function(dataList) {
+                console.log(dataList);
+            });
+        });
+    });
+}
+
+
+function showPostiveLocation() {
+    // lastName = localStorage.getItem('userLastName');
+    lastName = "last_name";
+    fetch('http://localhost:4040/users/loc', {
+        method: 'post', body: JSON.stringify({
+            dataLastName : lastName,
+        }),
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+    return response.json();
+    }).then(function(dataList) {
+        dataList.data.forEach(function (e) {
+             console.log("Placename: "+e.placeName);
+             console.log("date: "+e.dateTime);
+             var table = document.getElementById("historyTable");
+             var row = table.insertRow(-1);
+             var cell1 = row.insertCell(0);
+             var cell2 = row.insertCell(1);
+             cell1.innerHTML = e.dateTime;
+             cell2.innerHTML = e.placeName;
+
+        });
+    });
+
+}
+
+//reset localstorage
+function temporaryReset() {
+   localStorage.clear();
 }
