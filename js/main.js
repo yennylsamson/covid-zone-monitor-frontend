@@ -217,8 +217,8 @@ function checkCreds() {
             // User last name stored in session storage
             sessionStorage.setItem('userLastName', dataList.data[0].dataLastName);
             sessionStorage.setItem('userFirstName', dataList.data[0].dataFirstName);
-            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
-            // window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
+            // window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+            window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
             
             
         } else{
@@ -287,6 +287,13 @@ function showLocationHistory() {
 
 //get locations with covid positive
 function getPositiveLocation() {
+
+    var positive = false;
+    var positiveLastPlace = "";
+    var positiveLastDate = "";
+    var negativeLastPlace = "";
+    var negativeLastDate = "";
+
     fetch('http://localhost:4040/users/getpos', {
         method: 'get'
     }
@@ -308,19 +315,75 @@ function getPositiveLocation() {
         }).then(function(response) {
         return response.json();
         }).then(function(dataList) {
+            
             dataList.data.forEach(function (e) {
+                console.log("date-"+e.placeName);
                  positiveLocations.data.forEach(function (f) {
                     if (e.placeName === f.placeName && e.dataDate === f.dataDate) {
                         var newPlaceName = f.placeName;
                         var newDataDate = f.dataDate;
                         comparedLocations['locations'].push({"placeName":newPlaceName,"dataDate":newDataDate});
+                        console.log("same location");
                         console.log(comparedLocations);
-                    
+
+                        positive = true;
+                        // save latest location and date
+                        console.log("date-"+e.dataFirstName+"place-"+f.placeName)
+
+                        // var newSpanLoc = document.createElement('span');
+                        // var newSpanDate = document.createElement('span');
+                        // var newLine = "\r\n";
+                        // newSpanLoc.setAttribute('id', 'positivePlace');
+                        // newSpanDate.setAttribute('id', 'positiveDate');
+                        // document.getElementById('infoPos').appendChild(newSpanLoc);
+                        // document.getElementById('infoPos').appendChild(newSpanDate);
+
+                        // newSpanLoc.innerHTML = positiveLastPlace+ "<br />";
+
+                        // newSpanDate.innerHTML = positiveLastDate+ "<br />"+ "<br />";
+
+                        var place = newPlaceName;
+                        var date =newDataDate+ "<br />"+ "<br />";
+                        var table = document.getElementById("infoTable");
+                        var row = table.insertRow(-1);
+                        var cell1 = row.insertCell(0);
+                        var cell2 = row.insertCell(1);
+                        var cell3 = row.insertCell(2);
+
+                        var mapSign = document.createElement('span');
+                        mapSign.setAttribute('class','fa fa-map-marker location-symbol symb');
+                        var warnSign = document.createElement('span');
+                        warnSign.setAttribute('class','fa fa-exclamation-circle warning-symbol symb');
+                        cell1.appendChild(warnSign);
+                        cell2.innerHTML =place;
+                        cell3.appendChild(mapSign);
+
+                        var row1 = table.insertRow(-1);
+                        var cell11 = row1.insertCell(0);
+                        var cell21 = row1.insertCell(1);
+                        var cell31 = row1.insertCell(2);
+                        cell11.innerHTML = "";
+                        cell21.innerHTML =date;
+                        cell31.innerHTML ="";
                     }
+                    
                  })
+                negativeLastPlace= e.placeName;
+                negativeLastDate = e.dataDate;
             });
+
+            console.log(positive);
+            var postiveDiv = document.getElementById("postiveCard");
+            var negativeDiv = document.getElementById("negativeCard");
+            if(positive == true){
+                negativeDiv.style.display = "none";
+            }else {
+                postiveDiv.style.display = "none";
+            }
         });
     });
+    
+   
 }
 
 

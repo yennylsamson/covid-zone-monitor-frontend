@@ -10,7 +10,7 @@
         <script src="https://kit.fontawesome.com/bbec1f8b2b.js" crossorigin="anonymous"></script>
         <script src="js/main.js"></script>
     </head>
-    <body>
+    <body onload="getPositiveLocation()">
 
         <div class="wrapper d-flex align-items-stretch">
 			<nav id="sidebar">
@@ -45,21 +45,31 @@
             <div id="content" class="p-4 p-md-5 pt-5 bg">
                 <br>
                 
-                <div class="card container">
+                <div class="card container pb-2">
                     <h4 class="mt-3 mb-1">NOTIFICATIONS</h4>
                     <hr>
-                    <div class="row no-gutter">
-                        <!-- left symbol -->
+
+                    <!-- Positive div -->
+                    <div class="row no-gutter messageCard overflow-auto" id="postiveCard" style="max-height: 450px;">  
+                        <table id="infoTable"></table>
+
+                        <hr class="infoHr">
+                        <!-- Message -->
+                        <div class="message text-justified px-5">
+                            You <b>may have crossed paths</b> with 
+                            someone who tested positive for COVID-19 
+                            since you we're out.
+                        </div>
+                        
+                        <!-- left symbol
                         <div class="col-1 " ><span class="fa fa-exclamation-circle warning-symbol symb"></span></div>
 
                         <div class="col container row">
                             <div class="col" >
                                 <div class="message-header">
-                                    <b>Holy Angel University</b> <br>
-                                    <span style="font-size: small;">October 16, 1:00pm -2:30pm</span> 
                                 </div>
                                 <hr>
-                                  <!-- Message -->
+                                  Message
                                 <div class="message text-justified">
                                     You <b>may have crossed paths</b> with 
                                     someone who tested positive for COVID-19 
@@ -73,20 +83,17 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1 symb"><span class="fa fa-map-marker location-symbol symb"></span></div>
+                        <div class="col-1 symb"><span class="fa fa-map-marker location-symbol symb"></span></div> -->
                     </div>
-                    <hr>
-                    <div class="row no-gutter">
+                
+
+                    <!-- negative div -->
+                    <div class="row no-gutter messageCard negativeDiv" id="negativeCard">
                         <!-- left symbol -->
                         <div class="col-1 " ><span class="fa fa-user-plus safe-symbol"></span></div>
 
                         <div class="col container row">
                             <div class="col" >
-                                <div class="message-header">
-                                    <b>SM Clark</b> <br>
-                                    <span style="font-size: small;">October 20, 1:00pm -4:30pm</span>  
-                                </div>
-                                <hr>
                                   <!-- Message -->
                                 <div class="message text-justified">
                                     You <b> have not crossed paths</b> with 
@@ -95,10 +102,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-1"><span class=""></span></div>
+                        <!-- <div class="col-1"><span class=""></span></div> -->
                     </div>
-                    <hr>
-                    <span style="text-align: right;"><a href="#">Notification History --></a></span>
+                    <!-- <hr>
+                    <span style="text-align: right;"><a href="#">Notification History</a></span> -->
                 </div>
                 
                 

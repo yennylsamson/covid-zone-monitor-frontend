@@ -267,6 +267,37 @@ hr {
   font-size: 90%;
 }
 
-td {
+#historyTable td {
   padding: 3%;
+}
+#infoTable {
+  width: 100%;
+}
+
+
+
+#infoTable td:nth-child(1) {
+  width: 15%;
+  text-align: center;
+}
+
+#infoTable td:nth-child(2) {
+  width: 70%;
+  
+}
+
+#infoTable td:nth-child(3) {
+  width: 15%;
+  text-align: center;
+}
+
+#infoTable tr:nth-child(even) {
+  font-size: small;
+  padding-top: 0%;
+  margin-top: 0%;
+
+}
+
+.infoHr{
+  width: 100%;
 }
