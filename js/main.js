@@ -217,8 +217,8 @@ function checkCreds() {
             // User last name stored in session storage
             sessionStorage.setItem('userLastName', dataList.data[0].dataLastName);
             sessionStorage.setItem('userFirstName', dataList.data[0].dataFirstName);
-            // window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
-            window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
+            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+            // window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
             
             
         } else{
