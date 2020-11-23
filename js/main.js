@@ -1,4 +1,4 @@
-var pName;
+let pName = sessionStorage.getItem('pName');
 var cPositionLong;
 var cPositionLat;
 
@@ -92,10 +92,14 @@ function displayPOI(coords) {
         var myObj = JSON.parse(this.responseText);
         var name = myObj.features[0].place_name;
         if (name !== pName) {
+            console.log("Not Same");
             document.getElementById("placename").innerText = name;
             console.log(myObj.features[0].place_name);
             listPlace(date, time, name);
-            pName = name;
+            sessionStorage.setItem('pName', name);
+        } else {
+            console.log("Same Loc");
+            document.getElementById("placename").innerText = name;
         }
     }
     };
@@ -124,11 +128,11 @@ function saveData(){
         dataPassword: user_password
     }));
     if (repeat_password === user_password) {
-        if(user_password.length <= 6){
-            window.alert('Password must be longer than 6 characters.');
-        }
-        else{
-            fetch('http://localhost:4040/users/new', {
+        if(user_password.length > 6){
+            if (last_name === "" || first_name === "" || email_address === "" || phone_number === "" || user_address === "" || user_password === "") {
+                window.alert('Please fill up all fields.');
+            } else {
+                fetch('http://localhost:4040/users/new', {
                 method: 'post', body: JSON.stringify({
                     dataLastName: last_name,
                     dataFirstName: first_name,
@@ -138,13 +142,17 @@ function saveData(){
                     dataPassword: user_password
                 }), 
                     headers:{"Content-Type": "application/json"}
-            }).then(function(response) {
-                return response.json();
-            }).then(function(dataList) {
-                console.log(dataList);
-                window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/login.html"
-                });
-            window.alert('Successfully Registered!');
+                }).then(function(response) {
+                    return response.json();
+                }).then(function(dataList) {
+                    console.log(dataList);
+                    window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/login.html"
+                    });
+                window.alert('Successfully Registered!');
+                }
+        }
+        else{
+            window.alert('Password must be longer than 6 characters.');
         }
     }
     else{
@@ -177,15 +185,12 @@ function listPlace(date, time, place_Name) {
 
     fetch('http://localhost:4040/users/log', {
         method: 'post', body: JSON.stringify({
-            // dataLastName: last_name,
-            // dataFirstName: first_name,
             dataTime: time,
             dataDate: date,
             placeName: place_Name,
             dataLastName: last_name,
             dataFirstName: first_name,
-            // dateTime: "date_Time",
-            // placeName: "place_Name",
+
         }), 
             headers:{"Content-Type": "application/json"}
     }).then(function(response) {
@@ -193,6 +198,29 @@ function listPlace(date, time, place_Name) {
     }).then(function(dataList) {
         console.log(dataList);
         getUsers();
+    });
+
+    fetch('http://localhost:4040/users/getuser', {
+        method: 'post', body: JSON.stringify({
+            dataLastName: last_name,
+        }), 
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+        return response.json();
+    }).then(function(dataList) {
+        if (dataList.data[0].covidStatus === "Yes") {
+            fetch('http://localhost:4040/users/pos', {
+            method: 'post', body: JSON.stringify({
+                dataDate: date,
+                placeName: place_Name,
+            }), 
+                headers:{"Content-Type": "application/json"}
+            }).then(function(response) {
+                return response.json();
+            }).then(function(dataList) {
+                console.log(dataList);
+            });
+        }
     });
 }
 
@@ -229,7 +257,7 @@ function checkCreds() {
             // User last name stored in session storage
             sessionStorage.setItem('userLastName', dataList.data[0].dataLastName);
             sessionStorage.setItem('userFirstName', dataList.data[0].dataFirstName);
-            window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
+            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
             // window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
             
             
@@ -239,10 +267,22 @@ function checkCreds() {
     });
 }
 
+
+function getposlocs() {
+    fetch('http://localhost:4040/users/getpos', {
+                method: 'get'
+            }
+            
+            ).then(function(response) {
+              return response.json();
+            }).then(function(dataList) {
+                console.log(dataList);
+            });
+}
+
 //add users location to positive table
-function addPostiveLocation() {
+function addPositiveLocation() {
     lastName = sessionStorage.getItem('userLastName');
-    console.log(lastName);
     fetch('http://localhost:4040/users/loc', {
         method: 'post', body: JSON.stringify({
             dataLastName : lastName,
@@ -251,23 +291,83 @@ function addPostiveLocation() {
     }).then(function(response) {
       return response.json();
     }).then(function(dataList) {
+        console.log(dataList);
         dataList.data.forEach(function (e) {
-            console.log("Placename: "+e.placeName);
-            console.log("Date: "+e.dataDate);
             // add to the database
-            fetch('http://localhost:4040/users/pos', {
-            method: 'post', body: JSON.stringify({
-
-                dataDate: e.dataDate,
-                placeName: e.placeName,
-            }), 
-                headers:{"Content-Type": "application/json"}
-            }).then(function(response) {
-                return response.json();
+            fetch('http://localhost:4040/users/getpos', {
+                method: 'get'
+            }
+            
+            ).then(function(response) {
+              return response.json();
             }).then(function(dataList) {
-                console.log(dataList);
+                
+                
+                    if (dataList.data.length == 0) {
+                        fetch('http://localhost:4040/users/pos', {
+                        method: 'post', body: JSON.stringify({
+            
+                            dataDate: e.dataDate,
+                            placeName: e.placeName,
+                        }), 
+                            headers:{"Content-Type": "application/json"}
+                        }).then(function(response) {
+                            return response.json();
+                        }).then(function(dataList) {
+                        });
+                    } else {
+                        dataList.data.forEach(function (f) {
+
+                            if (e.placeName === f.placeName && e.dataDate === f.dataDate) {
+                                console.log("Same Location");
+                            } else {
+                                console.log("Pumasok");
+                                fetch('http://localhost:4040/users/pos', {
+                                method: 'post', body: JSON.stringify({
+                    
+                                    dataDate: e.dataDate,
+                                    placeName: e.placeName,
+                                }), 
+                                    headers:{"Content-Type": "application/json"}
+                                }).then(function(response) {
+                                    return response.json();
+                                }).then(function(dataList) {
+                                });
+                            }
+                        })
+                    }
+                
             });
         });
+    });
+
+    fetch('http://localhost:4040/users/setpos', {
+        method: 'post', body: JSON.stringify({
+            dataLastName: lastName,
+            covidStatus: 'Yes'
+            
+        }), 
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+        return response.json();
+    }).then(function(dataList) {
+        console.log(dataList);
+    });
+}
+
+function setCovidNeg() {
+    lastName = sessionStorage.getItem('userLastName');
+    fetch('http://localhost:4040/users/setpos', {
+        method: 'post', body: JSON.stringify({
+            dataLastName: lastName,
+            covidStatus: 'No'
+            
+        }), 
+            headers:{"Content-Type": "application/json"}
+    }).then(function(response) {
+        return response.json();
+    }).then(function(dataList) {
+        console.log(dataList);
     });
 }
 
@@ -313,6 +413,7 @@ function getPositiveLocation() {
     ).then(function(response) {
       return response.json();
     }).then(function(positiveLocations) {
+        console.log(positiveLocations);
         var comparedLocations = {
             "locations":[
           ]
@@ -327,9 +428,8 @@ function getPositiveLocation() {
         }).then(function(response) {
         return response.json();
         }).then(function(dataList) {
-            
+            console.log(dataList);
             dataList.data.forEach(function (e) {
-                console.log("date-"+e.placeName);
                  positiveLocations.data.forEach(function (f) {
                     if (e.placeName === f.placeName && e.dataDate === f.dataDate) {
                         var newPlaceName = f.placeName;
@@ -412,7 +512,9 @@ function getPositiveLocation() {
     }
  }
 
-
+function getSpecificUser(lastName) {
+    
+}
 
 //reset localstorage
 function temporaryReset() {
