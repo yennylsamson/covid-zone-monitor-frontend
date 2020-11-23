@@ -142,8 +142,6 @@ function saveData(){
                 return response.json();
             }).then(function(dataList) {
                 console.log(dataList);
-                localStorage.setItem('userEmail', dataList.data[0].dataEmailAdd);
-                localStorage.setItem('userPass', dataList.data[0].dataPassword);
                 window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/login.html"
                 });
             window.alert('Successfully Registered!');
