@@ -112,6 +112,7 @@ function saveData(){
     const phone_number = document.getElementById('phoneNumber').value;
     const user_address = document.getElementById('address').value;
     const user_password = document.getElementById('password').value;
+    const repeat_password = document.getElementById('repeatPass').value;
 
     const dataList = new FormData();
     dataList.append("json", JSON.stringify({
@@ -122,23 +123,36 @@ function saveData(){
         dataAddress: user_address,
         dataPassword: user_password
     }));
-    fetch('http://localhost:4040/users/new', {
-        method: 'post', body: JSON.stringify({
-            dataLastName: last_name,
-            dataFirstName: first_name,
-            dataEmailAdd: email_address,
-            dataPhoneNumber: phone_number,
-            dataAddress: user_address,
-            dataPassword: user_password
-        }), 
-            headers:{"Content-Type": "application/json"}
-    }).then(function(response) {
-        return response.json();
-    }).then(function(dataList) {
-        console.log(dataList);
-        window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/login.html"
-
-    });
+    if (repeat_password === user_password) {
+        if(user_password.length <= 6){
+            window.alert('Password must be longer than 6 characters.');
+        }
+        else{
+            fetch('http://localhost:4040/users/new', {
+                method: 'post', body: JSON.stringify({
+                    dataLastName: last_name,
+                    dataFirstName: first_name,
+                    dataEmailAdd: email_address,
+                    dataPhoneNumber: phone_number,
+                    dataAddress: user_address,
+                    dataPassword: user_password
+                }), 
+                    headers:{"Content-Type": "application/json"}
+            }).then(function(response) {
+                return response.json();
+            }).then(function(dataList) {
+                console.log(dataList);
+                localStorage.setItem('userEmail', dataList.data[0].dataEmailAdd);
+                localStorage.setItem('userPass', dataList.data[0].dataPassword);
+                window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/login.html"
+                });
+            window.alert('Successfully Registered!');
+        }
+    }
+    else{
+        window.alert("Repeat Password is not the same");
+    }
+    
 
     
 }
@@ -217,7 +231,7 @@ function checkCreds() {
             // User last name stored in session storage
             sessionStorage.setItem('userLastName', dataList.data[0].dataLastName);
             sessionStorage.setItem('userFirstName', dataList.data[0].dataFirstName);
-            window.location.href ="http://localhost:8080/covid-zone-monitor-frontend/notification.html"
+            window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
             // window.location.href ="http://localhost/covid-zone-monitor-frontend/notification.html"
             
             
@@ -386,6 +400,19 @@ function getPositiveLocation() {
    
 }
 
+ function rememberCreds(){
+    if(document.forms[0].remember.checked == true){
+        localStorage.setItem("remember", "true");
+        localStorage.setItem("email_address", document.forms[0].emailAdd.value);
+        localStorage.setItem("user_password", document.forms[0].userPass.value);
+        
+    }
+    else{
+        localStorage.setItem("remember", "false");
+        localStorage.setItem("user_password", "");
+        localStorage.setItem("user_password", "");
+    }
+ }
 
 
 
